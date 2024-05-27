@@ -7,6 +7,7 @@ def main():
     )
     parser.add_argument('first_file', type=str, help='first file to compare')
     parser.add_argument('second_file', type=str, help='second file to compare')
+    parser.add_argument('-f', '--format', type=str, help='set format of output')
     args = parser.parse_args()
     return parser.main()
 
