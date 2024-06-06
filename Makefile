@@ -18,3 +18,12 @@ package-install:
 
 gendiff:
 	poetry run gendiff -h
+
+generate:
+	poetry run gendiff file1.json file2.json
+
+pytest:
+	poetry run  pytest
+
+lint-tests:
+	poetry run flake8 tests/
