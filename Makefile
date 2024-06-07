@@ -27,3 +27,5 @@ pytest:
 
 lint-tests:
 	poetry run flake8 tests/
+
+check: lint pytest
