@@ -1,24 +1,49 @@
 name: auto-tests
-on:
-  - push
-  - pull_request
+run-name: ${{ github.actor }} is testing out GitHub Actions
+
+on: [push]
+
 jobs:
-  tests:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Lint with flake8
+        run: poetry run flake8 gendiff
+
+      - name: Run tests
+        run: poetry run pytest tests/test_gendiff.py
+
+      - name: Run tests with coverage
+        run: poetry run pytest tests/test_gendiff.py --cov=gendiff --cov-report=xml --cov-report=term
+
+      - name: List coverage file
+        run: ls -l coverage.xml
+
+      - name: Install CodeClimate test reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+
+      - name: Report coverage to CodeClimate
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
+          ./cc-test-reporter before-build
+          ./cc-test-reporter format-coverage coverage.xml --input-type coverage.py
+          ./cc-test-reporter upload-coverage
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with:
-            python-version: "3.11.8"
-      - run: pip install poetry
-      - run: make install
-      - run: make pytest
-      - run: make lint
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v5.0.0
-        if: github.ref_name == 'main'
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make test-coverage
-          debug: true
+      
