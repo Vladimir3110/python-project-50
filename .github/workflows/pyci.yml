@@ -23,6 +23,7 @@ jobs:
           pip install poetry
           make install
           pip install pytest
+          pip install pytest pytest-cov
       - name: Run linter and pytest
         run: |
           make check
