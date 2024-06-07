@@ -20,7 +20,7 @@ jobs:
         # make depends on poetry
       - name: Install dependencies
         run: |
-          pip install poetry
+          pipx install poetry
           make install
           pip install pytest
           pip install pytest pytest-cov
