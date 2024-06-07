@@ -32,3 +32,5 @@ check: lint pytest
 
 test-coverage:
 	pytest --cov=./ --cov-report=xml
+
+.PHONY: test test-coverage
