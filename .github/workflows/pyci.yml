@@ -23,6 +23,7 @@ jobs:
           pipx install poetry
           make install
           pip install pytest
+          pip install pyyaml
           pip install pytest pytest-cov
       - name: Run linter and pytest
         run: |
