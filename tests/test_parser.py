@@ -1,5 +1,4 @@
 from gendiff.parser import parse_file
-import yaml
 
 
 def test_parse_yaml_file(tmpdir):
