@@ -22,6 +22,9 @@ gendiff:
 generate:
 	poetry run gendiff file1.json file2.json
 
+yaml:
+	poetry run gendiff filepath1.yml filepath2.yml
+
 pytest:
 	poetry run  pytest
 

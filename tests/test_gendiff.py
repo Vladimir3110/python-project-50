@@ -5,7 +5,12 @@ from gendiff import generate_diff
 @pytest.fixture
 def first_file_path(tmpdir):
     file_path = tmpdir.join("file1.json")
-    file_path.write('{"host": "hexlet.io", "timeout": 50, "proxy": "123.234.53.22", "follow": false}')
+    file_path.write("""{
+        "host": "hexlet.io",
+        "timeout": 50,
+        "proxy": "123.234.53.22",
+        "follow": false
+    }""")
     return str(file_path)
 
 
