@@ -1,4 +1,5 @@
 from gendiff.diff import find_diff, format_diff
+import yaml
 
 
 def test_find_diff_empty():
