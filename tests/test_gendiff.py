@@ -1,5 +1,6 @@
 import pytest
 from gendiff import generate_diff
+import yaml
 
 
 @pytest.fixture
