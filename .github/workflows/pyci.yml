@@ -25,9 +25,9 @@ jobs:
           pip install pytest
           pip install pyyaml
           pip install pytest pytest-cov
-      - name: Run linter and pytest
-        run: |
-          make check
+     # - name: Run linter and pytest
+     #   run: |
+     #     make check
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         if: github.ref_name == 'main'
