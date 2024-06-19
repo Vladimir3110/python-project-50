@@ -1,8 +1,7 @@
 install:
 	poetry install
 
-shell:
-	poetry shell
+.PHONY: pytest
 
 
 test:
