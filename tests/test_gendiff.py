@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 from gendiff.scripts.gendiff import generate_diff
+=======
+import pytest
+from gendiff import generate_diff
+import yaml
+>>>>>>> origin/main
 
 
 with open('./tests/fixtures/expected_stylish.txt', 'r') as f:
