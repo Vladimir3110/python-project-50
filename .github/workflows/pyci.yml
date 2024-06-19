@@ -13,15 +13,18 @@ jobs:
         python-version: [3.11.8]
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
-        # make depends on poetry
+          python-version: '3.11'
+      - name: Create virtual environment
+        run: python3.11 -m venv .venv
+      - name: Activate virtual environment
+        run: source .venv/bin/activate
       - name: Install dependencies
         run: |
           pipx install poetry
-          make install
+          poetry install
           pip install pytest
           pip install pyyaml
           pip install pytest pytest-cov
