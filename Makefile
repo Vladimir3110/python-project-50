@@ -1,11 +1,14 @@
 install:
 	poetry install
 
-lint:
-	poetry run flake8 gendiff
+test:
+	poetry run pytest
 
-package-reinstall:
-	python3 -m pip install --user dist/*.whl --force-reinstall
+test-coverage:
+	poetry run pytest --cov=gendiff tests/
+
+gendiff:
+	poetry run gendiff -h
 
 build:
 	poetry build
@@ -16,24 +19,15 @@ publish:
 package-install:
 	python3 -m pip install --user dist/*.whl
 
-gendiff:
-	poetry run gendiff -h
+reinstall:
+	poetry build
+	poetry publish --dry-run
+	python3 -m pip install --user dist/*.whl --force-reinstall
 
-generate:
-	poetry run gendiff file1.json file2.json
+lint:
+	poetry run flake8 gendiff
 
-yaml:
-	poetry run gendiff filepath1.yml filepath2.yml
+selfcheck:
+	poetry check
 
-pytest:
-	poetry run  pytest
-
-lint-tests:
-	poetry run flake8 tests/
-
-check: lint pytest
-
-test-coverage:
-	pytest --cov=./ --cov-report=xml .
-
-.PHONY: test test-coverage
+check: selfcheck test lint

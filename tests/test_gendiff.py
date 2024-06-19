@@ -1,34 +1,99 @@
-import pytest
-from gendiff import generate_diff
+from gendiff.scripts.gendiff import generate_diff
 
 
-@pytest.fixture
-def first_file_path(tmpdir):
-    file_path = tmpdir.join("file1.json")
-    file_path.write("""{
-        "host": "hexlet.io",
-        "timeout": 50,
-        "proxy": "123.234.53.22",
-        "follow": false
-    }""")
-    return str(file_path)
+with open('./tests/fixtures/expected_stylish.txt', 'r') as f:
+    result_stylish = f.read().strip()
+with open('./tests/fixtures/expected_plain.txt', 'r') as f:
+    result_plain = f.read().strip()
+with open('./tests/fixtures/expected_json.txt', 'r') as f:
+    result_json = f.read().strip()
+with open('./tests/fixtures/expected_nested_stylish.txt', 'r') as f:
+    result_nested_stylish = f.read().strip()
+with open('./tests/fixtures/expected_nested_plain.txt', 'r') as f:
+    result_nested_plain = f.read().strip()
+with open('./tests/fixtures/expected_nested_json.txt', 'r') as f:
+    result_nested_json = f.read().strip()
 
 
-@pytest.fixture
-def second_file_path(tmpdir):
-    file_path = tmpdir.join("file2.json")
-    file_path.write('{"timeout": 20, "verbose": true, "host": "hexlet.io"}')
-    return str(file_path)
+def test_flat_files_stylish():
+    assert result_stylish == \
+           generate_diff('./tests/fixtures/test_before.json',
+                         './tests/fixtures/test_after.json').strip()
+    assert result_stylish == \
+           generate_diff('./tests/fixtures/test_before.yml',
+                         './tests/fixtures/test_after.yml').strip()
 
 
-def test_generate_diff(first_file_path, second_file_path):
-    expected_diff = """{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}"""
+def test_nested_files_stylish():
+    assert result_nested_stylish == \
+           generate_diff('./tests/'
+                         'fixtures/test_before_nested.json',
+                         './tests/'
+                         'fixtures/test_after_nested.json',
+                         "stylish")
+    assert result_nested_stylish == \
+           generate_diff('./tests/'
+                         'fixtures/test_before_nested.yaml',
+                         './tests/'
+                         'fixtures/test_after_nested.yml',
+                         "stylish")
 
-    assert generate_diff(first_file_path, second_file_path) == expected_diff
+
+#
+def test_flat_files_plain():
+       expected_lines = [
+           "Property 'proxy' was removed",
+           "Property 'follow' was removed",
+           "Property 'timeout' was updated. From 50 to 20",
+           "Property 'verbose' was added with value: true",
+       ]
+       result_plain = generate_diff(
+           './tests/fixtures/test_before.json',
+           './tests/fixtures/test_after.json',
+           "plain"
+       )
+       for line in expected_lines:
+           assert line in result_plain
+
+
+def test_nested_files_plain():
+    assert result_nested_plain == \
+           generate_diff('./tests/'
+                         'fixtures/test_before_nested.json',
+                         './tests/'
+                         'fixtures/test_after_nested.json',
+                         "plain").strip()
+    assert result_nested_plain == \
+           generate_diff('./tests/'
+                         'fixtures/test_before_nested.yaml',
+                         './tests/'
+                         'fixtures/test_after_nested.yml',
+                         "plain").strip()
+
+
+def test_flat_files_json():
+    assert result_json == \
+           generate_diff('./tests/fixtures/'
+                         'test_before.json',
+                         './tests/fixtures/'
+                         'test_after.json', "json").strip()
+    assert result_json == \
+           generate_diff('./tests/fixtures/'
+                         'test_before.yml',
+                         './tests/fixtures/'
+                         'test_after.yml',
+                         "json").strip()
+
+
+def test_nested_files_json():
+    assert result_nested_json == \
+           generate_diff('./tests/fixtures/'
+                         'test_before_nested.json',
+                         './tests/fixtures/'
+                         'test_after_nested.json',
+                         "json").strip()
+    assert result_nested_json == \
+           generate_diff('./tests/fixtures/'
+                         'test_before_nested.yaml',
+                         './tests/fixtures/'
+                         'test_after_nested.yml', "json").strip()

@@ -1,0 +1,116 @@
+[
+  {
+    "name": "common",
+    "children": [
+      {
+        "name": "follow",
+        "value": false,
+        "status": "added"
+      },
+      {
+        "name": "setting1",
+        "value": "Value 1",
+        "status": "same"
+      },
+      {
+        "name": "setting2",
+        "value": 200,
+        "status": "removed"
+      },
+      {
+        "name": "setting3",
+        "old_value": true,
+        "new_value": null,
+        "status": "updated"
+      },
+      {
+        "name": "setting4",
+        "value": "blah blah",
+        "status": "added"
+      },
+      {
+        "name": "setting5",
+        "value": {
+          "key5": "value5"
+        },
+        "status": "added"
+      },
+      {
+        "name": "setting6",
+        "children": [
+          {
+            "name": "doge",
+            "children": [
+              {
+                "name": "wow",
+                "old_value": "",
+                "new_value": "so much",
+                "status": "updated"
+              }
+            ],
+            "status": "nested"
+          },
+          {
+            "name": "key",
+            "value": "value",
+            "status": "same"
+          },
+          {
+            "name": "ops",
+            "value": "vops",
+            "status": "added"
+          }
+        ],
+        "status": "nested"
+      }
+    ],
+    "status": "nested"
+  },
+  {
+    "name": "group1",
+    "children": [
+      {
+        "name": "baz",
+        "old_value": "bas",
+        "new_value": "bars",
+        "status": "updated"
+      },
+      {
+        "name": "foo",
+        "value": "bar",
+        "status": "same"
+      },
+      {
+        "name": "nest",
+        "old_value": {
+          "key": "value"
+        },
+        "new_value": "str",
+        "status": "updated"
+      }
+    ],
+    "status": "nested"
+  },
+  {
+    "name": "group2",
+    "value": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    },
+    "status": "removed"
+  },
+  {
+    "name": "group3",
+    "value": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    },
+    "status": "added"
+  }
+]
