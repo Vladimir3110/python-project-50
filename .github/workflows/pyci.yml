@@ -1,36 +1,18 @@
 name: auto-tests
 
-on:
-  - push
-  - pull_request
-
+on: push
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # we want to test our package on several versions of Python
-        python-version: [3.11.8]
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-      - name: Create virtual environment
-        run: python3.11 -m venv .venv
-      - name: Activate virtual environment
-        run: source .venv/bin/activate
-      - name: Install dependencies
-        run: |
-          pipx install poetry
-          poetry install
-          pip install pytest
-          pip install pyyaml
-          pip install pytest pytest-cov
-     # - name: Run linter and pytest
-     #   run: |
-     #     make check
+            python-version: "3.11.8"
+      - run: pip install poetry
+      - run: make install
+      - run: make pytest
+      - run: make lint
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         if: github.ref_name == 'main'
