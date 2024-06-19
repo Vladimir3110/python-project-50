@@ -24,8 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           pipx install poetry
-          poetry shell
-          make install
+          poetry install
           pip install pytest
           pip install pyyaml
           pip install pytest pytest-cov
