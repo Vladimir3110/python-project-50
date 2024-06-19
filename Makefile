@@ -1,9 +1,6 @@
 install:
 	poetry install
 
-shell:
-	poetry shell
-
 test:
 	poetry run pytest
 
