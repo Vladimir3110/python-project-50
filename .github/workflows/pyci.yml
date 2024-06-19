@@ -40,4 +40,4 @@ jobs:
           coverageCommand: make test-coverage
           coverageLocations: |
             ${{ github.workspace }}/coverage.xml:coverage.py
-          coverageFlags: --add-prefix gendiff/
+          prefix: ${{ github.workspace }}/gendiff
