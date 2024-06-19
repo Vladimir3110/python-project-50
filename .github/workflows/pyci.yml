@@ -23,14 +23,16 @@ jobs:
         run: source .venv/bin/activate
       - name: Install dependencies
         run: |
-          pipx install poetry
-          poetry install
-          pip install pytest
+          pip install poetry
+          poetry add pytest
+          pip install pytest-cov
           pip install pyyaml
-          pip install pytest pytest-cov
-     # - name: Run linter and pytest
-     #   run: |
-     #     make check
+          poetry add pyyaml
+          poetry add flake8
+          make install
+      - name: Run linter and pytest
+        run: |
+          make check
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         if: github.ref_name == 'main'
@@ -38,6 +40,4 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: make test-coverage
-          coverageLocations: |
-            ${{ github.workspace }}/coverage.xml:coverage.py
-          workingDirectory: ${{ github.workspace }}/gendiff
+          debug: true
