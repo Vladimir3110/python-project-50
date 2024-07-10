@@ -41,19 +41,19 @@ def test_nested_files_stylish():
 
 #
 def test_flat_files_plain():
-       expected_lines = [
-           "Property 'proxy' was removed",
-           "Property 'follow' was removed",
-           "Property 'timeout' was updated. From 50 to 20",
-           "Property 'verbose' was added with value: true",
-       ]
-       result_plain = generate_diff(
-           './tests/fixtures/test_before.json',
-           './tests/fixtures/test_after.json',
-           "plain"
-       )
-       for line in expected_lines:
-           assert line in result_plain
+    expected_lines = [
+        "Property 'proxy' was removed",
+        "Property 'follow' was removed",
+        "Property 'timeout' was updated. From 50 to 20",
+        "Property 'verbose' was added with value: true",
+    ]
+    result_plain = generate_diff(
+        './tests/fixtures/test_before.json',
+        './tests/fixtures/test_after.json',
+        "plain"
+    )
+    for line in expected_lines:
+        assert line in result_plain
 
 
 def test_nested_files_plain():
