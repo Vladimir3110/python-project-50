@@ -1,7 +1,6 @@
 from gendiff.formats.form_selector import select_formatter
 from gendiff.comparison_tree import compare_dicts
-from gendiff.parsing_functions import (get_data_and_extension,
-                                       parse)
+from gendiff.parsing import (get_data_and_extension, parse)
 
 
 def generate_diff(path_to_file1, path_to_file2, format_name="stylish"):
